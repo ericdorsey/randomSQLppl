@@ -140,23 +140,22 @@ function randInterests(interests) {
     }
     return interestsArr;
 }
+/*
 
+//Test our functions
 for (var i=0; i <= 10; i++) {
     //console.log(randFromArr(professions));
     console.log(randInterests(interests));
 }
-
-
+*/
 
 $(document).ready (function() {
     "use strict";
-    //$("<h4/>").text('foo').appendTo("body");
-    //console.log("foo");
     $.ajax({
         url: "http://api.randomuser.me",
         dataType: 'json',
         success: function(data) {
-            console.log(data.results[0].user); //male
+            //console.log(data.results[0].user);
             var last = data.results[0].user.name.last;
             last = last.charAt(0).toUpperCase() + last.substring(1);
             var first = data.results[0].user.name.first;
@@ -164,32 +163,17 @@ $(document).ready (function() {
             var email = data.results[0].user.email;
             var gender = data.results[0].user.gender;
             gender = gender[0].toUpperCase();
-            //$("body").append(data.results[0].user.dob);
             var birthday = new Date(data.results[0].user.dob * 1000);
             birthday = birthday.getMonth()+1+'/'+(birthday.getDay()+1)+'/19'+birthday.getYear();
-            //$("body").append(birthday.getMonth()+1+'/'+(birthday.getDay()+1)+'/19'+birthday.getYear());
             var profession = randFromArr(professions);
-            //$("body").append(profession);
             var city = data.results[0].user.location.city;
             city = city.charAt(0).toUpperCase() + city.substring(1);
-            //city = city.split("");
-            //city[0] = city[0].toUpperCase();
-            //city = city.join("");
             var state = data.results[0].user.location.state;
-            //state = state.split("");
-            //state[0] = state[0].toUpperCase();
-            //state = state.join("");
             state = state.charAt(0).toUpperCase() + state.substring(1);
             var location = city + ", " + state;
-            //$("body").append(location);
-            //status
             var pickedStatus = randFromArr(seeking);
             var pickedInterests = randInterests(interests);
-            //$("body").append(pickedInterests);
-            //var dob = new Date(data.results[0].user.dob);
-            //$("body").append(dob);
             var pickedSeeking = randFromArr(seeking);
-            //$("body").append(pickedSeeking);
 
             $(".InsertStmt").append("INSERT INTO my_contacts" + "<br>");
             $(".InsertStmt").append("(last_name, first_name, email, gender, birthday, " +
